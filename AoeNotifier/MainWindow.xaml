@@ -1,0 +1,181 @@
+﻿<Window x:Class="AoeNotifier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AoeNotifier"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        Closing="Window_Closing"
+        Title="Age of Empires II Game Notifier" Height="815" Width="700" Icon="AoeNotifier.ico">
+
+    
+    
+    <StackPanel Background="#5d6b99"><!-- ccd5f0-->
+        <Border Background="White" Margin="5">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontSize="13">Current Filters</TextBlock>
+                <Border Margin="5" BorderBrush="Gray" BorderThickness="1">
+                    <StackPanel>
+                        <ListView Height="150" Margin="5,5,5,0" Name="lvFilters">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="BorderBrush" Value="Blue"/>
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding Path=Color}" Value="Dark">
+                                            <Setter Property="Background" Value="#ccd5f0"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Color}" Value="Light">
+                                            <Setter Property="Background" Value="#dbdbdb"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Color}" Value="Red">
+                                            <Setter Property="Background" Value="#f1a0a3"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Filter type" Width="95" DisplayMemberBinding="{Binding FilterType}" />
+                                    <GridViewColumn Header="Match mode" Width="95" DisplayMemberBinding="{Binding PredicateType}" />
+                                    <GridViewColumn Header="Text mode" Width="110" DisplayMemberBinding="{Binding TextMode}" />
+                                    <GridViewColumn Header="Filter mode" Width="80" DisplayMemberBinding="{Binding FilterMode}" />
+                                    <GridViewColumn Header="Search Text" Width="240" DisplayMemberBinding="{Binding Text}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <TextBlock FontSize="10" Foreground="Gray" Margin="5,0,0,0">Hold Ctrl to select multiple items or deselect an item</TextBlock>
+                        
+                        <Button Margin="5,5,5,0" Click="DeleteSelectedFilters_Click" IsEnabled="{Binding ButtonsEnabled}">Delete selected filters</Button>
+                        <Button Margin="5" Click="JoinSelectedFilters_Click" IsEnabled="{Binding ButtonsEnabled}">Join selected filters (AND)</Button>
+                    </StackPanel>
+                </Border>
+                
+            </StackPanel>
+        </Border>
+
+        <Border Background="White" Margin="5">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontSize="13">Add New Filter</TextBlock>
+                <Border Margin="5" BorderBrush="Gray" BorderThickness="1">
+                    <StackPanel>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="165"></ColumnDefinition>
+                                <ColumnDefinition Width="165"></ColumnDefinition>
+                                <ColumnDefinition Width="165"></ColumnDefinition>
+                                <ColumnDefinition Width="165"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"></RowDefinition>
+                                <RowDefinition Height="25"></RowDefinition>
+                                <RowDefinition Height="25"></RowDefinition>
+                                <RowDefinition Height="25"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" >Filter type</TextBlock>
+                            <RadioButton GroupName="filterType" IsChecked="True" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" x:Name="radioLobbyTitle">Lobby title</RadioButton>
+                            <RadioButton GroupName="filterType" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" x:Name="radioPlayerName">Player name</RadioButton>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Match mode</TextBlock>
+                            <RadioButton GroupName="predicateType" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" x:Name="radioFullMatch">Full match</RadioButton>
+                            <RadioButton GroupName="predicateType" IsChecked="True" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" x:Name="radioContains">Contains</RadioButton>
+                            <RadioButton GroupName="predicateType" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" x:Name="radioAllWords">All words</RadioButton>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Text mode</TextBlock>
+                            <RadioButton GroupName="textMode" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" x:Name="radioCaseSensitive">Case sensitive</RadioButton>
+                            <RadioButton GroupName="textMode" IsChecked="True" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" x:Name="radioCaseInsensitive">Case insensitive</RadioButton>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">Search Text</TextBlock>
+                            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="35" MaxLines="1" Margin="0,0,40,0" x:Name="searchText"></TextBox>
+                            <CheckBox Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" Margin="3,0,0,0" x:Name="ignoreMatchingLobbies">Ignore matching lobbies</CheckBox>
+                        </Grid>
+                        <Button Margin="5" Click="SaveFilter_Click" IsEnabled="{Binding ButtonsEnabled}">Save Filter</Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <Border Background="White" Margin="5">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontSize="13">Monitoring</TextBlock>
+                <Border Margin="5" BorderBrush="Gray" BorderThickness="1">
+                    <StackPanel>
+
+                        <WrapPanel HorizontalAlignment="Center">
+
+                            <WrapPanel>
+                                <StackPanel Width="100" HorizontalAlignment="Center">
+                                    <TextBlock TextAlignment="Center" FontWeight="Bold">Status</TextBlock>
+                                    <TextBlock TextAlignment="Center" Text="{Binding CurrentStatus}"/>
+                                </StackPanel>
+
+                                <StackPanel Width="110" HorizontalAlignment="Center">
+                                    <TextBlock TextAlignment="Center" FontWeight="Bold">Last Auto Refresh</TextBlock>
+                                    <TextBlock TextAlignment="Center"><Run Text="{Binding LastRefresh}"/> seconds ago</TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Width="100" HorizontalAlignment="Center">
+                                    <TextBlock TextAlignment="Center" FontWeight="Bold">Total Lobbies</TextBlock>
+                                    <TextBlock TextAlignment="Center" Text="{Binding TotalLobbies}"/>
+                                </StackPanel>
+
+                                <StackPanel Width="100" HorizontalAlignment="Center">
+                                    <TextBlock TextAlignment="Center" FontWeight="Bold">Total Players</TextBlock>
+                                    <TextBlock TextAlignment="Center" Text="{Binding TotalPlayers}"/>
+                                </StackPanel>
+
+                                <StackPanel Width="110" HorizontalAlignment="Center">
+                                    <TextBlock TextAlignment="Center" FontWeight="Bold">Matching Lobbies</TextBlock>
+                                    <TextBlock TextAlignment="Center" Text="{Binding MatchingLobbies}"/>
+                                </StackPanel>
+                            </WrapPanel>
+
+                            <Button Width="100" Margin="10,5,0,5" Click="RefreshNow_Click" IsEnabled="{Binding RefreshEnabled}">Refresh Now</Button>
+                        </WrapPanel>
+
+                        <Button Margin="5" Click="StartMonitoring_Click" IsEnabled="{Binding StartStopEnabled}" Content="{Binding StartStopText}"/>
+                        <Border Margin="5" BorderBrush="Gray" BorderThickness="1">
+                            <ListView Height="190" Name="lvLobbies" ItemsSource="{Binding LobbySource}">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Focusable" Value="False"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel Background="{Binding Color}">
+                                            <WrapPanel Width="100">
+                                                <Button Width="90" Margin="5,2,5,0" Tag="{Binding MatchID}" Click="Join_Click">Join</Button>
+                                                <Button Width="90" Margin="5" Tag="{Binding MatchID}" Click="CopyID_Click">Copy ID</Button>
+                                            </WrapPanel>
+                                            <TextBlock Width="515" TextWrapping="Wrap">
+                                                <Run FontWeight="Bold">Lobby</Run> <Run Text="{Binding LobbyName}"/>
+                                                <LineBreak/>
+                                                <Run FontWeight="Bold">Players </Run>
+                                                <Run FontWeight="Bold" Text="{Binding PlayerCount}"/>/<Run FontWeight="Bold" Text="{Binding LobbySize}"/>
+                                                <Run Text="{Binding PlayersListStr}"/>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Border>
+
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button Margin="5" Width="200" Click="HelpButton_Click" Name="HelpButton">How To Use / About</Button>
+                            <Button Margin="5" Width="200" IsEnabled="{Binding ResetNotificationsEnabled}" Name="ResetNotificationsButton" Click="ResetNotificationsButton_Click">Reset Notifications History</Button>
+                            <Button Margin="5" Width="200" Click="ErrorLogButton_Click"  Name="ErrorLogButton">Error Log</Button>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+        
+    </StackPanel>
+</Window>

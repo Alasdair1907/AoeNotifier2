@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Age of Empires II DE Game Lobby Notifier</title>
+    <style>
+        .header {
+            text-align: center;
+            font-size: 16px;
+            display: block;
+            margin-top: 7px;
+            margin-bottom: 7px;
+        }
+
+        .text {
+            text-align: justify;
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .highlight {
+            color: darkblue;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <span class="text">
+        Age of Empires II DE Game Notifier keeps track of all currently available AoE 2 DE lobbies and players and notifies the user whenever it spots a lobby or a player that the user is interested in.<br />
+        The program allows you to create a set of rules, based on which you will be getting your notifications. For instance, if you are a Forest Nothing player and you want to play whenever someone from your clan joins a forest nothing game, you can create a set of rules that will tell the program to keep an eye for lobbies that contain keywords "forest" and "nothing" (or just "nothing") and have players whose names contain certain sequences of letters, for example "[B]".
+    </span>
+
+    <span class="header">
+        How To Use
+    </span>
+
+    <span class="text">
+        Create filters and click "Start monitoring". The program will scan all AOE2 DE lobbies every 25 seconds and notify the user about the lobbies that match the filters.<br />
+        If you have a number of filters (or filter groups - see "Join Selected filters (AND)"), you will receive notifications for lobbies that match at least one of those filters/filter groups.
+    </span>
+
+    <span class="text"><span class="highlight">Filter type:</span> Determines whether this filter will be looking at the lobby title or at player names inside the lobby.</span>
+
+    <span class="text">
+        <span class="highlight">Match mode:</span> "Full match" means that the lobby title/player name will have to match the input text exactly, e.g. "Forest Nothing" will match "Forest Nothing" but will NOT match "Forest Nothing 3v3".<br />
+        "Contains" means that if the input text is found within the lobby title/player name, it will match, e.g. if the input is "Forest Nothing" it will match "Forest Nothing 3v3", because the latter contains the input text.<br />
+        "All words" means that the input text is dissected into words, and each word is looked for in the lobby title/player name, e.g. if the input is "Forest Nothing" it will match "Forest & Nothing 3v3", as both words "Forest" and "Nothing" are contained in the title.
+    </span>
+
+    <span class="text"><span class="highlight">Text Mode:</span> Determines, whether the matching is case sensitive or not - "Forest Nothing" will NOT be matched to "forest nothing" if the filter is set to Case sensitive, it will be matched otherwise.</span>
+    <span class="text"><span class="highlight">Ignore Matching Lobbies:</span> If this option is selected, a filter will be created, that will tell the program to NOT produce any notifications for lobbies, that match this filter.</span>
+    <span class="text"><span class="highlight">Join Selected filters (AND):</span> Joins the filters, which means, that for a match to occur, the lobby in question will have to match ALL CONDITIONS INSIDE THE JOINED FILTER. The joined filters (except for negative filters, which cannot be joined) share the same background in the filters list.</span>
+    <span class="text"><span class="highlight">Refresh Now:</span> If you want to refresh the lobby list without waiting for the next auto refresh, click 'Refresh now'</span>
+    <span class="text"><span class="highlight">Reset Notifications History:</span> The program remembers which lobbies it has notified the user about to avoid producing duplicate notifications. You can reset that memory using this button.</span>
+
+    <span class="header">
+        Example 1
+    </span>
+
+    <span class="text">
+        If you want to get notified whenever there is a lobby that has words "forest" and "nothing" in its title AND you want to make sure that a player whose name contains [FN] is in that lobby, you need to create two filters and join them:<br />
+        First create filter for lobby, so set 'Filter type' to 'Lobby title', set 'Match mode' to 'All words', text mode to 'Case insensitive', put "forest nothing" into the text field and click 'Save filter'.<br />
+        Then, create filter for the player - set 'Filter type' to 'Player name', set 'Match mode' to 'Contains', text mode to 'Case insensitive', put "[FN]" into the text field and save the filter.<br />
+        Now join these filters, so that the lobby will have to match both conditions - select newly created filters using mouse and Ctrl, and click "Join selected filters (AND)" button.<br />
+    </span>
+
+    <span class="header">
+        Example 2
+    </span>
+
+    <span class="text">
+        You want to be notified of all NOTHING games (e.g. forest nothing, gold nothing, sheep nothing, etc.), but you do NOT want to be bothered by Bamboo Nothing lobbies.<br />
+        So you create one filter for nothing games: in 'Filter Type' you select 'Lobby title', in 'Match mode' you select 'Contains', you set 'Text Mode' to 'Case Insensitive', you put 'nothing' into a search text and create a filter. That will match any title with the word 'nothing' in it.<br />
+        Now you make another filter with following parameters: 'Filter Type' -> 'Lobby title', 'Match Mode' -> 'Contains', 'Text Mode' -> 'Case Insensitive', Search text - 'bamboo', and you click 'Ignore matching lobbies' and save the filter. That will make the program ignore any lobbies, that have the word 'bamboo' in them.
+    </span>
+
+
+</body>
+</html>

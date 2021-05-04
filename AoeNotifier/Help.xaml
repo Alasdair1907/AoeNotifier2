@@ -1,0 +1,23 @@
+﻿<Window x:Class="AoeNotifier.Help"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AoeNotifier"
+        mc:Ignorable="d"
+        Title="Help" Height="700" Width="800">
+    <StackPanel Background="#5d6b99">
+        <Border Width="800" Height="650" Background="White" Margin="5, 5, 5, 5">
+            <StackPanel>
+
+                <WebBrowser Name="WebBrowserHelp" Height="600" Width="740" Margin="0,10,0,10"/>
+                
+                <Button Content="Close" Width="200" Click="CloseButton_Click"  Name="CloseButton"></Button>
+                
+
+            </StackPanel>
+
+        </Border>
+
+    </StackPanel>
+</Window>
