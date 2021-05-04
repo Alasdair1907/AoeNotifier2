@@ -24,4 +24,9 @@
     <Resource Include="Help.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="github\" />
+    <Folder Include="release\" />
+  </ItemGroup>
+
 </Project>
