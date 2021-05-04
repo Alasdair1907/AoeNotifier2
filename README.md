@@ -6,5 +6,5 @@ The program allows you to create a set of rules, based on which you will be gett
 
 
 Release:
-https://github.com/Alasdair1907/AoeNotifier2/blob/master/AoeNotifier/release/AoeNotifier.exe
+https://github.com/Alasdair1907/AoeNotifier2/raw/master/AoeNotifier/release/AoeNotifier.exe
 
