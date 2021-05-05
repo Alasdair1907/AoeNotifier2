@@ -5,6 +5,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>AoeNotifier.ico</ApplicationIcon>
+    <Version>2.1.0</Version>
+    <Authors>Alexandr Fedorov alasdair1907@gmail.com</Authors>
+    <Description>Age of Empires II DE Game Lobby Notifier</Description>
+    <Copyright>alasdair1907@gmail.com</Copyright>
+    <PackageProjectUrl>https://github.com/Alasdair1907/AoeNotifier2</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Alasdair1907/AoeNotifier2</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

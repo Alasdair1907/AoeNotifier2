@@ -538,7 +538,10 @@ namespace AoeNotifier
 
         private void ErrorLogButton_Click(object sender, RoutedEventArgs e)
         {
-            string errorStr = string.Join("\r\n", errors);
+            List<string> errorsReverse = new List<string>(errors);
+            errorsReverse.Reverse();
+
+            string errorStr = string.Join("\r\n", errorsReverse);
             if (errorLogWindow != null)
             {
                 errorLogWindow.Close();
@@ -578,6 +581,27 @@ namespace AoeNotifier
 
             helpWindow = new Help();
             helpWindow.Show();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double defaultWindowHeight = 745;
+            double defaultLvFiltersHeight = 150;
+            double defaultLvLobbiesHeight = 190;
+
+            double defaultElemsHeight = defaultLvFiltersHeight + defaultLvLobbiesHeight;
+
+            double newWindowHeight = e.NewSize.Height;
+
+            double minusHeight = defaultWindowHeight - newWindowHeight;
+            double minusElemsHeight = defaultElemsHeight - minusHeight;
+            double minusRatio = defaultElemsHeight / minusElemsHeight;
+
+            double newLvFiltersHeight = defaultLvFiltersHeight / minusRatio;
+            double newLvLobbiesHeight = defaultLvLobbiesHeight / minusRatio;
+
+            lvFilters.Height = newLvFiltersHeight;
+            lvLobbies.Height = newLvLobbiesHeight;
         }
     }
 }
