@@ -38,7 +38,7 @@ namespace AoeNotifier.Engine
             protected override WebRequest GetWebRequest(Uri address)
             {
                 WebRequest webRequest = base.GetWebRequest(address);
-                webRequest.Timeout = 5 * 1000;
+                webRequest.Timeout = 15 * 1000;
                 return webRequest;
             }
         }
